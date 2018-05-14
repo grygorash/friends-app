@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import userList from "./userList";
+import friendList from "./friendList";
 
 export default combineReducers({
-  userList
+  friendList
 });

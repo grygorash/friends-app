@@ -1,8 +1,8 @@
-.list-group {
+.user-list.list-group {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between; }
-  .list-group .list-group-item {
+  .user-list.list-group .list-group-item {
     margin-bottom: 30px;
     border-radius: 5px;
     text-transform: capitalize; }
