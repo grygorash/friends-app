@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 import { addFriend, removeFriend, fetchUsers, searchUser } from "./actions/index";
-import { getUsers } from "./selectors";
+import { getUsers, getSearch } from "./selectors";
 import UserList from "./components/UserList/index";
 import Header from "./components/Header/index";
 import SearchList from "./components/SearchList/index";
@@ -89,7 +89,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: getUsers(state)
+  users: getUsers(state),
+  search: getSearch(state)
 });
 
 const mapDispatchToProps = dispatch => ({
