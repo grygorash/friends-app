@@ -1,17 +1,36 @@
-import { ADD_FRIEND, REMOVE_FRIEND } from "../actionTypes";
+import axios from "axios";
+import { ADD_FRIEND, REMOVE_FRIEND, FETCH_USERS_START, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from "../actionTypes";
 
-export const addFriend = (id, firstName, lastName, userPic) => {
+export const fetchUsers = () => async dispatch => {
+  dispatch({type: FETCH_USERS_START});
+
+  try {
+    const users = await axios.get("https://randomuser.me/api/?results=10&seed=abc");
+    dispatch({
+      type: FETCH_USERS_SUCCESS,
+      payload: Array.from(users.data.results),
+    });
+  } catch (err) {
+    dispatch({
+      type: FETCH_USERS_FAILURE,
+      payload: err,
+      error: true
+    });
+  }
+};
+
+export const addFriend = id => {
   return {
     type: ADD_FRIEND,
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    userPic: userPic
+    id,
+    isFriend: false
   };
 };
-export const removeFriend = (id) => {
+
+export const removeFriend = id => {
   return {
     type: REMOVE_FRIEND,
-    id
+    id,
+    isFriend: false
   };
 };

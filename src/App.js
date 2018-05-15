@@ -4,10 +4,9 @@ import { Container } from "reactstrap";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import axios from "axios";
 
-import { addFriend, removeFriend } from "./actions/index";
-import Loader from "./components/Loader/index";
+import { addFriend, removeFriend, fetchUsers } from "./actions/index";
+import { getUsers } from "./selectors";
 import UserList from "./components/UserList/index";
 import Header from "./components/Header/index";
 import SearchList from "./components/SearchList/index";
@@ -17,46 +16,15 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userList: [],
-      load: true
-    };
+    this.state = {};
   };
 
   componentDidMount() {
-    this.getUserList();
+    this.props.fetchUsers();
   }
 
-  getUserList = () => {
-    if (!this.state.load) {
-      this.setState({load: true});
-    }
-    axios({
-      method: "get",
-      url: "https://randomuser.me/api/?results=10&seed=abc",
-      timeout: 1000
-    })
-      .then((response) => {
-        this.setState({
-          userList: response.data,
-          friendList: response.data.results,
-          load: false
-        });
-        if (this.state.errorLoad) {
-          this.setState({errorLoad: false});
-        }
-      })
-      .catch((error) => {
-        this.setState({
-          load: false,
-          errorLoad: true
-        });
-        console.log(error);
-      });
-  };
-
-  handleAddFriend = (id, firstName, lastName, userPic) => {
-    this.props.addFriend(id, firstName, lastName, userPic);
+  handleAddFriend = (id) => {
+    this.props.addFriend(id);
   };
 
   handleRemoveFriend = (id) => {
@@ -64,8 +32,7 @@ class App extends Component {
   };
 
   render() {
-    const {load, userList} = this.state;
-    const {friendList} = this.props;
+    const {users} = this.props;
 
     return (
       <Container>
@@ -74,12 +41,9 @@ class App extends Component {
           <Route exact path="/"
                  render={() => {
                    return (
-                     <Fragment>
-                       {load ? <Loader /> : <UserList userList={userList}
-                                                      friendList={friendList}
-                                                      onAddFriend={this.handleAddFriend}
-                                                      onRemoveFriend={this.handleRemoveFriend} />}
-                     </Fragment>
+                     <UserList users={users}
+                               onAddFriend={this.handleAddFriend}
+                               onRemoveFriend={this.handleRemoveFriend} />
                    );
                  }}
           />
@@ -87,10 +51,8 @@ class App extends Component {
           <Route exact path="/my-friends"
                  render={() => {
                    return (
-                     <Fragment>
-                       {load ? <Loader /> : <FriendList friendList={friendList}
-                                                        onRemoveFriend={this.handleRemoveFriend} />}
-                     </Fragment>
+                     <FriendList users={users}
+                                 onRemoveFriend={this.handleRemoveFriend} />
                    );
                  }}
           />
@@ -100,17 +62,14 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    friendList: state.friendList,
-  };
-};
+const mapStateToProps = state => ({
+  users: getUsers(state)
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addFriend: bindActionCreators(addFriend, dispatch),
-    removeFriend: bindActionCreators(removeFriend, dispatch),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchUsers: bindActionCreators(fetchUsers, dispatch),
+  addFriend: bindActionCreators(addFriend, dispatch),
+  removeFriend: bindActionCreators(removeFriend, dispatch),
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -1,30 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
 import { ListGroup } from "reactstrap";
 
+import Loader from "../Loader";
 import UserItem from "./UserItem/index";
 import "./UserList.css";
 
-class UserList extends Component {
+function UserList(props) {
+  const {onRemoveFriend, onAddFriend, users} = props;
+  console.log("--->111111", users);
+  return (
+    users.length === 0 ? (<Loader />) : (<ListGroup className="user-list">
+      {users.map((user, index) => {
 
-
-  render() {
-    const {onRemoveFriend, onAddFriend, userList, friendList} = this.props;
-
-    return (
-      <ListGroup className="user-list">
-        {userList.results.map((user, index) => {
-          return (
-            <UserItem key={index}
-                      id={user.login.username}
-                      {...user}
-                      onAddFriend={onAddFriend}
-                      onRemoveFriend={onRemoveFriend}
-            />
-          );
-        })}
-      </ListGroup>
-    );
-  }
+        return (
+          <UserItem key={index}
+                    {...user}
+                    onAddFriend={onAddFriend}
+                    onRemoveFriend={onRemoveFriend}
+          />
+        );
+      })}
+    </ListGroup>)
+  );
 }
 
 export default UserList;

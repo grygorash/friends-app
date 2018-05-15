@@ -13,17 +13,17 @@ class FriendList extends Component {
 
     return (
         <ListGroup>
-          {friendList.length >= 1 ? (friendList.map((friend, index) => {
-            return (
-              <ListGroupItem key={index} id={friend.id}>
-                <img src={friend.userPic} alt="" />
-                {friend.firstName} {friend.lastName}
-                <Button color="danger" onClick={() => onRemoveFriend(friend.id)}>Delete</Button>
-              </ListGroupItem>
-            );
-          })) : (
-            <div>no friends</div>
-          )}
+          {/*{friendList.length >= 1 ? (friendList.map((friend, index) => {*/}
+            {/*return (*/}
+              {/*<ListGroupItem key={index} id={friend.id}>*/}
+                {/*<img src={friend.userPic} alt="" />*/}
+                {/*{friend.firstName} {friend.lastName}*/}
+                {/*<Button color="danger" onClick={() => onRemoveFriend(friend.id)}>Delete</Button>*/}
+              {/*</ListGroupItem>*/}
+            {/*);*/}
+          {/*})) : (*/}
+            {/*<div>no friends</div>*/}
+          {/*)}*/}
         </ListGroup>
     );
   }
