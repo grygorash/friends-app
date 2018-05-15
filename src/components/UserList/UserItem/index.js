@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import { ListGroupItem, Button } from "reactstrap";
 
-
-class UserItem extends Component {
-  render() {
-    const {onAddFriend, onRemoveFriend, ...user} = this.props;
-
-    return (
-      <ListGroupItem className="text-center">
-        <img src={user.picture.large} alt="user" />
-        <br />
+function UserItem(props) {
+  const {onAddFriend, onRemoveFriend, ...user} = props;
+  return (
+    <ListGroupItem className="text-center">
+      <img src={user.picture.large} alt="user" />
+      <p>
         {user.name.first} {user.name.last}
-        <br />
+      </p>
+      {!user.isFriend ? (
         <Button color="primary" onClick={() => onAddFriend(user.phone)}>add</Button>
-      </ListGroupItem>
-    );
-  }
+      ) : (
+        <Button color="danger" onClick={() => onRemoveFriend(user.phone)}>remove</Button>
+      )}
+    </ListGroupItem>
+  );
 }
 
 export default UserItem;

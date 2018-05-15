@@ -7,7 +7,7 @@ import "./UserList.css";
 
 function UserList(props) {
   const {onRemoveFriend, onAddFriend, users} = props;
-  console.log("--->111111", users);
+
   return (
     users.length === 0 ? (<Loader />) : (<ListGroup className="user-list">
       {users.map((user, index) => {

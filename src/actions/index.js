@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_FRIEND, REMOVE_FRIEND, FETCH_USERS_START, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from "../actionTypes";
+import { ADD_FRIEND, REMOVE_FRIEND, FETCH_USERS_START, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE, SEARCH_USER } from "../actionTypes";
 
 export const fetchUsers = () => async dispatch => {
   dispatch({type: FETCH_USERS_START});
@@ -8,7 +8,7 @@ export const fetchUsers = () => async dispatch => {
     const users = await axios.get("https://randomuser.me/api/?results=10&seed=abc");
     dispatch({
       type: FETCH_USERS_SUCCESS,
-      payload: Array.from(users.data.results),
+      payload: users.data.results
     });
   } catch (err) {
     dispatch({
@@ -22,15 +22,20 @@ export const fetchUsers = () => async dispatch => {
 export const addFriend = id => {
   return {
     type: ADD_FRIEND,
-    id,
-    isFriend: false
+    id
   };
 };
 
 export const removeFriend = id => {
   return {
     type: REMOVE_FRIEND,
-    id,
-    isFriend: false
+    id
+  };
+};
+
+export const searchUser = value => {
+  return {
+    type: SEARCH_USER,
+    value
   };
 };

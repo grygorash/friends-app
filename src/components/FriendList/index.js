@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 
+import "./FriendList.css";
+// import Loader from "../Loader";
 
 class FriendList extends Component {
   constructor(props) {
@@ -8,23 +10,41 @@ class FriendList extends Component {
     this.state = {};
   };
 
-  render() {
-    const {friendList, onRemoveFriend} = this.props;
+  componentDidMount() {
+    // this.getFriendList();
+  }
 
+  // getFriendList = () => {
+  //   let friendList = [];
+  //   this.props.users.map(friend => {
+  //     if (friend.isFriend) {
+  //       friendList.push(friend);
+  //       return friendList;
+  //     }
+  //   });
+  // };
+
+  render() {
+    // let friendList = this.getFriendList();
+    const {users, onRemoveFriend} = this.props;
     return (
-        <ListGroup>
-          {/*{friendList.length >= 1 ? (friendList.map((friend, index) => {*/}
-            {/*return (*/}
-              {/*<ListGroupItem key={index} id={friend.id}>*/}
-                {/*<img src={friend.userPic} alt="" />*/}
-                {/*{friend.firstName} {friend.lastName}*/}
-                {/*<Button color="danger" onClick={() => onRemoveFriend(friend.id)}>Delete</Button>*/}
-              {/*</ListGroupItem>*/}
-            {/*);*/}
-          {/*})) : (*/}
-            {/*<div>no friends</div>*/}
-          {/*)}*/}
-        </ListGroup>
+      // friendList.length === 0 ? (<Loader />) : (<div>ok</div>)
+
+      <ListGroup className="friend-list">
+        {users.map((friend, index) => {
+          return friend.isFriend ? (
+            <ListGroupItem key={index} id={friend.phone}>
+              <img src={friend.picture.medium} alt="" />
+              <span>
+                {friend.name.first} {friend.name.last}
+                </span>
+              <Button color="danger" onClick={() => onRemoveFriend(friend.phone)}>Delete</Button>
+            </ListGroupItem>
+          ) : (
+            null
+          );
+        })}
+      </ListGroup>
     );
   }
 }

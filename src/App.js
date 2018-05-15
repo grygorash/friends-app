@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
-import { addFriend, removeFriend, fetchUsers } from "./actions/index";
+import { addFriend, removeFriend, fetchUsers, searchUser } from "./actions/index";
 import { getUsers } from "./selectors";
 import UserList from "./components/UserList/index";
 import Header from "./components/Header/index";
@@ -16,23 +16,40 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      value: ""
+    };
   };
 
   componentDidMount() {
     this.props.fetchUsers();
   }
 
-  handleAddFriend = (id) => {
+  handleChangeInput = value => {
+    this.setState({
+      value: value
+    });
+  };
+
+  handleSearchUser = e => {
+    e.preventDefault();
+    this.props.searchUser(this.state.value);
+    this.setState({
+      value: ""
+    });
+  };
+
+  handleAddFriend = id => {
     this.props.addFriend(id);
   };
 
-  handleRemoveFriend = (id) => {
+  handleRemoveFriend = id => {
     this.props.removeFriend(id);
   };
 
   render() {
     const {users} = this.props;
+    const {value} = this.state;
 
     return (
       <Container>
@@ -47,7 +64,16 @@ class App extends Component {
                    );
                  }}
           />
-          <Route path="/search" component={SearchList} />
+          <Route path="/search"
+                 render={() => {
+                   return (
+                     <SearchList value={value}
+                                 onInputChange={this.handleChangeInput}
+                                 onSearchUser={this.handleSearchUser}
+                     />
+                   );
+                 }}
+          />
           <Route exact path="/my-friends"
                  render={() => {
                    return (
@@ -70,6 +96,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUsers: bindActionCreators(fetchUsers, dispatch),
   addFriend: bindActionCreators(addFriend, dispatch),
   removeFriend: bindActionCreators(removeFriend, dispatch),
+  searchUser: bindActionCreators(searchUser, dispatch),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

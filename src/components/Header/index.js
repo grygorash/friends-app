@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import "./Header.css";
 
-function Header(props) {
+function Header() {
   return (
     <div className="menu">
       <ListGroup className="main-nav">

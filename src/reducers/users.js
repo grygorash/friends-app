@@ -1,39 +1,33 @@
-import * as R from "ramda";
-
-import { ADD_FRIEND, REMOVE_FRIEND, FETCH_USERS_SUCCESS } from "../actionTypes";
+import { ADD_FRIEND, REMOVE_FRIEND, FETCH_USERS_SUCCESS, SEARCH_USER } from "../actionTypes";
 
 const initialState = [];
 
-const friendList = (state = initialState, action) => {
+const users = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
-      return R.merge(state, action.payload);
-      
-      // return state.users[Object.assign(state, action.payload)];
-
-      // return state
+      return state = action.payload;
 
     case ADD_FRIEND:
       return state.map(user => {
-        if (user.id !== action.id) {
+        if (user.phone !== action.id) {
           return user;
         } else {
-          user.push({isFriend: true});
+          return {...user, isFriend: true};
         }
       });
-
 
     case REMOVE_FRIEND:
-      return state.filter(friend => {
-        if (friend.id !== action.id) {
-          return friend;
+      return state.map(user => {
+        if (user.phone !== action.id) {
+          return user;
         } else {
-          return null;
+          return {...user, isFriend: false};
         }
       });
+
     default:
       return state;
   }
 };
 
-export default friendList;
+export default users;
