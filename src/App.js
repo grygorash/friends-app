@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentPage: 1,
-      itemsPerPage: 8
+      itemsPerPage: 12
     };
   };
 

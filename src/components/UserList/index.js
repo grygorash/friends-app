@@ -13,24 +13,26 @@ function UserList(props) {
 
   return (
     <Fragment>
-      <p>Total users: {users.length}</p>
       {users.length === 0 ? (
         <Loader />
       ) : (
-        <ListGroup className="user-list">
-          {users.map((user, index) => {
-            return index >= startOffset && startCount < itemsPerPage ? ++startCount && (
-              <UserItem
-                key={index}
-                {...user}
-                onAddFriend={onAddFriend}
-                onRemoveFriend={onRemoveFriend}
-              />
-            ) : (
-              null
-            );
-          })}
-        </ListGroup>
+        <div className="user-list">
+          <p>Total users: {users.length}</p>
+          <ListGroup>
+            {users.map((user, index) => {
+              return index >= startOffset && startCount < itemsPerPage ? ++startCount && (
+                <UserItem
+                  key={index}
+                  {...user}
+                  onAddFriend={onAddFriend}
+                  onRemoveFriend={onRemoveFriend}
+                />
+              ) : (
+                null
+              );
+            })}
+          </ListGroup>
+        </div>
       )}
       {!users.length ? null : (
         <PaginationContainer

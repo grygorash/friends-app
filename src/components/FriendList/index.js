@@ -2,39 +2,29 @@ import React, { Fragment } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 
 import "./FriendList.css";
-import PaginationContainer from "../PaginationContainer/PaginationContainer";
+import Loader from "../Loader";
 
 
 const FriendList = props => {
-  const {users, onRemoveFriend, currentPage, itemsPerPage, page} = props;
-  const startOffset = (currentPage - 1) * itemsPerPage;
-  let startCount = 0;
+  const {users, onRemoveFriend} = props;
 
   return (
     <Fragment>
-      <p>{users.length === 0 ? `No friends` : `You have ${users.length} friends`}</p>
-      <ListGroup className="friend-list">
-        {users.map((friend, index) => {
-          return index >= startOffset && startCount < itemsPerPage ? ++startCount && (
-            <ListGroupItem key={index} id={friend.phone}>
-              <img src={friend.picture.medium} alt="" />
-              <span>
+      {users.length === 0 && users.length ? (<Loader />) : (
+        <div className="friend-list">
+          <p>{users.length === 0 ? "No friends" : `You have ${users.length} friends`}</p>
+          <ListGroup className="friend-list">
+            {users.map((friend, index) =>
+              <ListGroupItem key={index} id={friend.phone}>
+                <img src={friend.picture.medium} alt="" />
+                <span>
                 {friend.name.first} {friend.name.last}
                 </span>
-              <Button color="danger" onClick={() => onRemoveFriend(friend)}>Remove</Button>
-            </ListGroupItem>
-          ) : (
-            null
-          );
-        })}
-      </ListGroup>
-      {!users.length ? null : (
-        <PaginationContainer
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          page={page}
-          users={users}
-        />
+                <Button color="danger" onClick={() => onRemoveFriend(friend)}>Remove</Button>
+              </ListGroupItem>
+            )}
+          </ListGroup>
+        </div>
       )}
     </Fragment>
   );
