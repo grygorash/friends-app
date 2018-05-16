@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 import { addFriend, removeFriend, fetchUsers, searchUser } from "./actions/index";
-import { getUsers, getSearch } from "./selectors";
+import { getUsers, getSearchValue, getSearchedUsers, getFriends } from "./selectors";
 import UserList from "./components/UserList/index";
 import Header from "./components/Header/index";
 import SearchList from "./components/SearchList/index";
@@ -17,68 +17,80 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ""
+      currentPage: 1,
+      itemsPerPage: 8
     };
   };
 
   componentDidMount() {
     this.props.fetchUsers();
+    const friends = JSON.parse(localStorage.getItem("friends"));
+    // console.log(friends);
   }
 
-  handleChangeInput = value => {
+  componentDidUpdate() {
+    localStorage.setItem("friends", JSON.stringify(this.props.friends));
+  }
+
+  handleSearchUser = value => {
+    this.props.searchUser(value);
+  };
+
+  handleAddFriend = user => {
+    this.props.addFriend(user);
+  };
+
+  handleRemoveFriend = user => {
+    this.props.removeFriend(user);
+  };
+
+  page = page => {
     this.setState({
-      value: value
+      currentPage: page
     });
-  };
-
-  handleSearchUser = e => {
-    e.preventDefault();
-    this.props.searchUser(this.state.value);
-    this.setState({
-      value: ""
-    });
-  };
-
-  handleAddFriend = id => {
-    this.props.addFriend(id);
-  };
-
-  handleRemoveFriend = id => {
-    this.props.removeFriend(id);
   };
 
   render() {
-    const {users} = this.props;
-    const {value} = this.state;
 
+    const {users, searchedUsers, searchValue, friends} = this.props;
+    const {itemsPerPage, currentPage} = this.state;
     return (
       <Container>
         <Header />
         <Switch>
-          <Route exact path="/"
+          <Route exact
+                 path="/"
                  render={() => {
                    return (
-                     <UserList users={users}
-                               onAddFriend={this.handleAddFriend}
-                               onRemoveFriend={this.handleRemoveFriend} />
-                   );
-                 }}
-          />
-          <Route path="/search"
-                 render={() => {
-                   return (
-                     <SearchList value={value}
-                                 onInputChange={this.handleChangeInput}
-                                 onSearchUser={this.handleSearchUser}
+                     <UserList
+                       users={users}
+                       currentPage={currentPage}
+                       itemsPerPage={itemsPerPage}
+                       onAddFriend={this.handleAddFriend}
+                       onRemoveFriend={this.handleRemoveFriend}
+                       page={this.page}
                      />
                    );
                  }}
           />
+          <Route path="/search"
+                 render={() =>
+                   <SearchList
+                     value={searchValue}
+                     onInputChange={this.handleSearchUser}
+                     users={searchedUsers}
+                     onAddFriend={this.handleAddFriend}
+                     onRemoveFriend={this.handleRemoveFriend}
+                   />
+                 }
+          />
           <Route exact path="/my-friends"
                  render={() => {
                    return (
-                     <FriendList users={users}
-                                 onRemoveFriend={this.handleRemoveFriend} />
+                     <FriendList
+                       users={friends}
+                       onRemoveFriend={this.handleRemoveFriend}
+                     />
                    );
                  }}
           />
@@ -90,7 +102,9 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   users: getUsers(state),
-  search: getSearch(state)
+  friends: getFriends(state),
+  searchValue: getSearchValue(state),
+  searchedUsers: getSearchedUsers(state)
 });
 
 const mapDispatchToProps = dispatch => ({

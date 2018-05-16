@@ -9,9 +9,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./App";
-import reducers from "./reducers/index";
+import rootReducer from './reducers/users';
 
-const store = createStore(reducers, composeWithDevTools(
+const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(thunk)
 ));
 

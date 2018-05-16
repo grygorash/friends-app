@@ -1,0 +1,13 @@
+.pagination {
+  .pointer-none {
+    pointer-events: none;
+  }
+  .page-item {
+    a {
+      color: #007bff;
+    }
+    &.disabled {
+      pointer-events: none;
+    }
+  }
+}

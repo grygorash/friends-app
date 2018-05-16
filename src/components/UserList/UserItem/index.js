@@ -10,9 +10,9 @@ function UserItem(props) {
         {user.name.first} {user.name.last}
       </p>
       {!user.isFriend ? (
-        <Button color="primary" onClick={() => onAddFriend(user.phone)}>add</Button>
+        <Button color="primary" onClick={() => onAddFriend(user)}>add</Button>
       ) : (
-        <Button color="danger" onClick={() => onRemoveFriend(user.phone)}>remove</Button>
+        <Button color="danger" onClick={() => onRemoveFriend(user)}>remove</Button>
       )}
     </ListGroupItem>
   );

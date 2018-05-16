@@ -1,17 +1,38 @@
-import React from "react";
-import { Button } from "reactstrap";
+import React, { Fragment } from "react";
+import { ListGroup, ListGroupItem, Button, Input } from "reactstrap";
 
-function SearchList(props) {
-  const {value, onInputChange, onSearchUser} = props;
+import "./SearchList.css";
+import Loader from "../Loader";
+
+const SearchList = (props) => {
+  const {value, onInputChange, users, onAddFriend, onRemoveFriend} = props;
   return (
-    <form onSubmit={e => onSearchUser(e)}>
-      <input type="text"
-             value={value}
-             onChange={({target}) => onInputChange(target.value)}
-      />
-      <Button type="submit">Search</Button>
-    </form>
+    <Fragment>
+      <div className="search-field">
+        <Input type="text"
+               placeholder="Please, enter name or surname of user"
+               value={value}
+               onChange={({target}) => onInputChange(target.value)}
+        />
+      </div>
+      {users.length === 0 ? (<Loader />) : (
+        <ListGroup className="search-list">
+          {users.map((user, index) =>
+            <ListGroupItem key={index} className="text-center">
+              <img src={user.picture.large} alt="user" />
+              <p>
+                {user.name.first} {user.name.last}
+              </p>
+              {!user.isFriend ? (
+                <Button color="primary" onClick={() => onAddFriend(user)}>add</Button>
+              ) : (
+                <Button color="danger" onClick={() => onRemoveFriend(user)}>remove</Button>
+              )}
+            </ListGroupItem>)}
+        </ListGroup>
+      )}
+    </Fragment>
   );
-}
+};
 
 export default SearchList;

@@ -5,10 +5,10 @@ export const fetchUsers = () => async dispatch => {
   dispatch({type: FETCH_USERS_START});
 
   try {
-    const users = await axios.get("https://randomuser.me/api/?results=10&seed=abc");
+    const users = await axios.get("https://randomuser.me/api/?results=30&seed=abc");
     dispatch({
       type: FETCH_USERS_SUCCESS,
-      payload: users.data.results
+      users: users.data.results
     });
   } catch (err) {
     dispatch({
@@ -19,17 +19,17 @@ export const fetchUsers = () => async dispatch => {
   }
 };
 
-export const addFriend = id => {
+export const addFriend = user => {
   return {
     type: ADD_FRIEND,
-    id
+    user
   };
 };
 
-export const removeFriend = id => {
+export const removeFriend = user => {
   return {
     type: REMOVE_FRIEND,
-    id
+    user
   };
 };
 
