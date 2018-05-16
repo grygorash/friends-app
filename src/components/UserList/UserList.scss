@@ -1,0 +1,17 @@
+.user-list {
+	&.list-group {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		.list-group-item {
+			margin: 0 30px 30px 0;
+			border-radius: 5px;
+			text-transform: capitalize;
+			max-width: 22.5%;
+			width: 100%;
+			&:nth-child(4n){
+				margin-right: 0;
+			}
+		}
+	}
+}
