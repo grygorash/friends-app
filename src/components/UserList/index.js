@@ -8,9 +8,9 @@ import PaginationContainer from "../PaginationContainer/PaginationContainer";
 
 function UserList(props) {
   const {onRemoveFriend, onAddFriend, users, currentPage, itemsPerPage, page} = props;
-
   const startOffset = (currentPage - 1) * itemsPerPage;
   let startCount = 0;
+
   return (
     <Fragment>
       <p>Total users: {users.length}</p>
@@ -29,20 +29,19 @@ function UserList(props) {
             ) : (
               null
             );
-          })
-          }
-            </ListGroup>
-            )}
-          {!users.length ? null : (
-            <PaginationContainer
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-              page={page}
-              users={users}
-            />
-          )}
-        </Fragment>
-      );
-      }
+          })}
+        </ListGroup>
+      )}
+      {!users.length ? null : (
+        <PaginationContainer
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          page={page}
+          users={users}
+        />
+      )}
+    </Fragment>
+  );
+}
 
-      export default UserList;
+export default UserList;

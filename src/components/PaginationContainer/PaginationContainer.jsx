@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
-import "./PaginationStyles.scss";
+import "./PaginationStyles.css";
 
 class PaginationContainer extends Component {
   constructor(props) {
@@ -21,6 +21,9 @@ class PaginationContainer extends Component {
 
   render() {
     const {itemsPerPage, currentPage} = this.state;
+
+    console.log("--->pagination1", currentPage);
+
     const {users, page} = this.props;
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(users.length / itemsPerPage); i++) {
@@ -28,11 +31,13 @@ class PaginationContainer extends Component {
     }
     const currentPageNumbers = pageNumbers.slice(this.slicePage(currentPage), currentPage + 1);
 
+    console.log("--->pagination2", currentPage);
     return (
       <div>
         <Pagination
           size="lg"
           className="justify-content-center"
+          style={users.length < 8 ? {display: "none"} : {display: "flex"}}
         >
           <PaginationItem
             className={currentPage === 1 ? "disabled" : ""}

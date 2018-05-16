@@ -77,10 +77,13 @@ class App extends Component {
                  render={() =>
                    <SearchList
                      value={searchValue}
-                     onInputChange={this.handleSearchUser}
+                     currentPage={currentPage}
+                     itemsPerPage={itemsPerPage}
                      users={searchedUsers}
+                     onInputChange={this.handleSearchUser}
                      onAddFriend={this.handleAddFriend}
                      onRemoveFriend={this.handleRemoveFriend}
+                     page={this.page}
                    />
                  }
           />
@@ -89,7 +92,10 @@ class App extends Component {
                    return (
                      <FriendList
                        users={friends}
+                       currentPage={currentPage}
+                       itemsPerPage={itemsPerPage}
                        onRemoveFriend={this.handleRemoveFriend}
+                       page={this.page}
                      />
                    );
                  }}
