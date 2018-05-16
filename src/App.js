@@ -24,12 +24,10 @@ class App extends Component {
 
   componentDidMount() {
     this.props.fetchUsers();
-    const friends = JSON.parse(localStorage.getItem("friends"));
-    // console.log(friends);
   }
 
   componentDidUpdate() {
-    localStorage.setItem("friends", JSON.stringify(this.props.friends));
+    localStorage.setItem("users", JSON.stringify(this.props.users));
   }
 
   handleSearchUser = value => {
@@ -51,9 +49,9 @@ class App extends Component {
   };
 
   render() {
-
     const {users, searchedUsers, searchValue, friends} = this.props;
     const {itemsPerPage, currentPage} = this.state;
+
     return (
       <Container>
         <Header />

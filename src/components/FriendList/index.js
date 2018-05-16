@@ -9,7 +9,7 @@ const FriendList = props => {
   const {users, onRemoveFriend, currentPage, itemsPerPage, page} = props;
   const startOffset = (currentPage - 1) * itemsPerPage;
   let startCount = 0;
-  console.log("--->", currentPage);
+
   return (
     <Fragment>
       <p>{users.length === 0 ? `No friends` : `You have ${users.length} friends`}</p>
