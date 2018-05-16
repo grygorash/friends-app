@@ -5,13 +5,12 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
-import { addFriend, removeFriend, fetchUsers, searchUser } from "./actions/index";
-import { getUsers, getSearchValue, getSearchedUsers, getFriends } from "./selectors";
-import UserList from "./components/UserList/index";
-import Header from "./components/Header/index";
-import SearchList from "./components/SearchList/index";
-import FriendList from "./components/FriendList/index";
-import "./App.css";
+import { addFriend, removeFriend, fetchUsers, searchUser } from "../actions/index";
+import { getUsers, getSearchValue, getSearchedUsers, getFriends } from "../selectors";
+import UserList from "../components/UserList/index";
+import Header from "../components/Header/index";
+import SearchList from "../components/SearchList/index";
+import FriendList from "../components/FriendList/index";
 
 class App extends Component {
   constructor(props) {

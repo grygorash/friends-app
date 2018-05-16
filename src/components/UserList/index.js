@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
-import { ListGroup } from "reactstrap";
+import { ListGroup, ListGroupItem, Button } from "reactstrap";
 
 import Loader from "../Loader";
-import UserItem from "./UserItem/index";
-import "./UserList.css";
-import PaginationContainer from "../PaginationContainer/PaginationContainer";
+import Index from "../Pagination/index";
 
 function UserList(props) {
   const {onRemoveFriend, onAddFriend, users, currentPage, itemsPerPage, page} = props;
@@ -21,12 +19,17 @@ function UserList(props) {
           <ListGroup>
             {users.map((user, index) => {
               return index >= startOffset && startCount < itemsPerPage ? ++startCount && (
-                <UserItem
-                  key={index}
-                  {...user}
-                  onAddFriend={onAddFriend}
-                  onRemoveFriend={onRemoveFriend}
-                />
+                <ListGroupItem className="text-center">
+                  <img src={user.picture.large} alt="user" />
+                  <p>
+                    {user.name.first} {user.name.last}
+                  </p>
+                  {!user.isFriend ? (
+                    <Button color="primary" onClick={() => onAddFriend(user)}>add</Button>
+                  ) : (
+                    <Button color="danger" onClick={() => onRemoveFriend(user)}>remove</Button>
+                  )}
+                </ListGroupItem>
               ) : (
                 null
               );
@@ -35,7 +38,7 @@ function UserList(props) {
         </div>
       )}
       {!users.length ? null : (
-        <PaginationContainer
+        <Index
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
           page={page}

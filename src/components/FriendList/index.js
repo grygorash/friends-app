@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 
-import "./FriendList.css";
 import Loader from "../Loader";
 
 

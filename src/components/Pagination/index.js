@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
-import "./PaginationStyles.css";
+import "./Pagination.css";
 
-class PaginationContainer extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -121,4 +121,4 @@ class PaginationContainer extends Component {
   }
 }
 
-export default PaginationContainer;
+export default Index;

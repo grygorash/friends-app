@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { ListGroup, ListGroupItem, Button, Input } from "reactstrap";
 
-import "./SearchList.css";
 import Loader from "../Loader";
 
 const SearchList = (props) => {
