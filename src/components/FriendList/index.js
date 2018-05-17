@@ -9,9 +9,13 @@ const FriendList = props => {
 
   return (
     <Fragment>
-      {users.length === 0 ? (<Loader />) : (
+      {!users.length ? (
         <div className="friend-list">
-          <p>{users.length === 0 ? "No friends" : `You have ${users.length} friends`}</p>
+          <p>No friends</p>
+        </div>
+      ) : (
+        <div className="friend-list">
+          <p>{`You have ${users.length} friends`}</p>
           <ListGroup className="friend-list">
             {users.map((friend, index) =>
               <ListGroupItem key={index} id={friend.phone}>
@@ -26,6 +30,7 @@ const FriendList = props => {
         </div>
       )}
     </Fragment>
+
   );
 };
 
