@@ -5,7 +5,6 @@ import Loader from "../Loader";
 
 const SearchList = (props) => {
   const {value, onInputChange, users, onAddFriend, onRemoveFriend} = props;
-  console.log("--->", users);
   return (
     <Fragment>
       {users.length === 0 ? (<Loader />) : (

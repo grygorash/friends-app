@@ -9,7 +9,7 @@ const FriendList = props => {
 
   return (
     <Fragment>
-      {users.length === 0 && users.length ? (<Loader />) : (
+      {users.length === 0 ? (<Loader />) : (
         <div className="friend-list">
           <p>{users.length === 0 ? "No friends" : `You have ${users.length} friends`}</p>
           <ListGroup className="friend-list">

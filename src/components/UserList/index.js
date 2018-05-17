@@ -19,7 +19,7 @@ function UserList(props) {
           <ListGroup>
             {users.map((user, index) => {
               return index >= startOffset && startCount < itemsPerPage ? ++startCount && (
-                <ListGroupItem className="text-center">
+                <ListGroupItem key={index} className="text-center">
                   <img src={user.picture.large} alt="user" />
                   <p>
                     {user.name.first} {user.name.last}
