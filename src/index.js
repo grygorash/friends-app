@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./containers/App";
-import rootReducer from "./reducers/users";
+import rootReducer from "./reducers/index";
 import "./index.css";
 
 const store = createStore(rootReducer, composeWithDevTools(

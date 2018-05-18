@@ -4,10 +4,10 @@ import { ListGroup, ListGroupItem, Button, Input } from "reactstrap";
 import Loader from "../Loader";
 
 const SearchList = (props) => {
-  const {value, onInputChange, users, onAddFriend, onRemoveFriend} = props;
+  const {value, onInputChange, users, onAddFriend, onRemoveFriend, loaded} = props;
   return (
     <Fragment>
-      {users.length === 0 ? (<Loader />) : (
+      {loaded ? (
         <div className="search-list">
           <Input type="text"
                  placeholder="Please, enter name or surname of user"
@@ -17,7 +17,7 @@ const SearchList = (props) => {
           <ListGroup>
             {users.map((user, index) =>
               <ListGroupItem key={index} className="text-center">
-                <img src={user.picture.large} alt="user" />
+                <img src={user.picture.large} alt="user-pic" />
                 <p>
                   {user.name.first} {user.name.last}
                 </p>
@@ -30,7 +30,7 @@ const SearchList = (props) => {
             )}
           </ListGroup>
         </div>
-      )}
+      ) : <Loader />}
     </Fragment>
   );
 };

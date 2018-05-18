@@ -5,21 +5,17 @@ import Loader from "../Loader";
 
 
 const FriendList = props => {
-  const {users, onRemoveFriend} = props;
+  const {users, onRemoveFriend, loaded} = props;
 
   return (
     <Fragment>
-      {!users.length ? (
+      {loaded ? (
         <div className="friend-list">
-          <p>No friends</p>
-        </div>
-      ) : (
-        <div className="friend-list">
-          <p>{`You have ${users.length} friends`}</p>
-          <ListGroup className="friend-list">
+          <p>{users.length === 1 ? `You have ${users.length} friend` : users.length > 1 ? `You have ${users.length} friends` : "No friends"}</p>
+          <ListGroup>
             {users.map((friend, index) =>
               <ListGroupItem key={index} id={friend.phone}>
-                <img src={friend.picture.medium} alt="" />
+                <img src={friend.picture.medium} alt="user-pic" />
                 <span>
                 {friend.name.first} {friend.name.last}
                 </span>
@@ -28,9 +24,8 @@ const FriendList = props => {
             )}
           </ListGroup>
         </div>
-      )}
+      ) : <Loader />}
     </Fragment>
-
   );
 };
 

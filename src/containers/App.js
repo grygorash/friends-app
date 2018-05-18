@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Container } from "reactstrap";
+import { withRouter } from "react-router";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
+import { Container } from "reactstrap";
 
 import { addFriend, removeFriend, fetchUsers, searchUser } from "../actions/index";
-import { getUsers, getSearchValue, getSearchedUsers, getFriends } from "../selectors";
+import { getUsers, getSearchValue, getLoadingStatus, getSearchedUsers, getFriends } from "../selectors";
 import UserList from "../components/UserList/index";
 import Header from "../components/Header/index";
 import SearchList from "../components/SearchList/index";
@@ -48,18 +48,18 @@ class App extends Component {
   };
 
   render() {
-    const {users, searchedUsers, searchValue, friends} = this.props;
+    const {users, searchedUsers, searchValue, friends, loaded} = this.props;
     const {itemsPerPage, currentPage} = this.state;
 
     return (
       <Container>
         <Header />
         <Switch>
-          <Route exact
-                 path="/"
+          <Route exact path="/"
                  render={() => {
                    return (
                      <UserList
+                       loaded={loaded}
                        users={users}
                        currentPage={currentPage}
                        itemsPerPage={itemsPerPage}
@@ -73,26 +73,22 @@ class App extends Component {
           <Route path="/search"
                  render={() =>
                    <SearchList
+                     loaded={loaded}
                      value={searchValue}
-                     currentPage={currentPage}
-                     itemsPerPage={itemsPerPage}
                      users={searchedUsers}
                      onInputChange={this.handleSearchUser}
                      onAddFriend={this.handleAddFriend}
                      onRemoveFriend={this.handleRemoveFriend}
-                     page={this.page}
                    />
                  }
           />
-          <Route exact path="/my-friends"
+          <Route path="/my-friends"
                  render={() => {
                    return (
                      <FriendList
+                       loaded={loaded}
                        users={friends}
-                       currentPage={currentPage}
-                       itemsPerPage={itemsPerPage}
                        onRemoveFriend={this.handleRemoveFriend}
-                       page={this.page}
                      />
                    );
                  }}
@@ -104,6 +100,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
+  loaded: getLoadingStatus(state),
   users: getUsers(state),
   friends: getFriends(state),
   searchValue: getSearchValue(state),

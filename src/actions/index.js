@@ -1,11 +1,11 @@
 import axios from "axios";
 import {
-  ADD_FRIEND,
-  REMOVE_FRIEND,
   FETCH_USERS_START,
   FETCH_USERS_SUCCESS,
   FETCH_LOCAL_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
+  ADD_FRIEND,
+  REMOVE_FRIEND,
   SEARCH_USER
 } from "../actionTypes";
 
@@ -14,6 +14,7 @@ export const fetchUsers = () => async dispatch => {
   try {
     const users = await axios.get("https://randomuser.me/api/?results=30&seed=abc");
     const localUsers = JSON.parse(localStorage.getItem("users"));
+
     if (!localStorage.getItem("users")) {
       dispatch({
         type: FETCH_USERS_SUCCESS,
