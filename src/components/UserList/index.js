@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import Loader from "../Loader";
 import Pagination from "../Pagination/index";
 
-function UserList(props) {
+const UserList = props => {
   const {onRemoveFriend, onAddFriend, users, currentPage, itemsPerPage, page, loaded} = props;
   const startOffset = (currentPage - 1) * itemsPerPage;
   let startCount = 0;
@@ -45,6 +45,6 @@ function UserList(props) {
       ) : <Loader />}
     </Fragment>
   );
-}
+};
 
 export default UserList;

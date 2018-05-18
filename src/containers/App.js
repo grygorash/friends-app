@@ -29,16 +29,16 @@ class App extends Component {
     localStorage.setItem("users", JSON.stringify(this.props.users));
   }
 
-  handleSearchUser = value => {
-    this.props.searchUser(value);
-  };
-
   handleAddFriend = user => {
     this.props.addFriend(user);
   };
 
   handleRemoveFriend = user => {
     this.props.removeFriend(user);
+  };
+
+  handleSearchUser = value => {
+    this.props.searchUser(value);
   };
 
   page = page => {
@@ -82,7 +82,7 @@ class App extends Component {
                    />
                  }
           />
-          <Route path="/my-friends"
+          <Route path="/friends"
                  render={() => {
                    return (
                      <FriendList

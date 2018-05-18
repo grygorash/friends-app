@@ -1,5 +1,12 @@
 #root {
 	margin: 0 0 15px 0;
+	.menu {
+		.list-group {
+			justify-content: flex-start;
+			flex-flow: row wrap;
+			margin-bottom: 15px;
+		}
+	}
 	.user-list,
 	.search-list {
 		input {

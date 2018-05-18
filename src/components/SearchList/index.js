@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem, Button, Input } from "reactstrap";
 
 import Loader from "../Loader";
 
-const SearchList = (props) => {
+const SearchList = props => {
   const {value, onInputChange, users, onAddFriend, onRemoveFriend, loaded} = props;
   return (
     <Fragment>

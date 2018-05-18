@@ -1,7 +1,7 @@
 import React from "react";
 import "./Loader.css";
 
-function Loader() {
+const Loader = () => {
   return (
     <div>
       <div className="blob blob-0" />
@@ -12,6 +12,6 @@ function Loader() {
       <div className="blob blob-5" />
     </div>
   );
-}
+};
 
 export default Loader;
