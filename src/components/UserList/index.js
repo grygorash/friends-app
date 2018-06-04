@@ -17,20 +17,42 @@ const UserList = props => {
           <ListGroup>
             {users.map((user, index) => {
               return index >= startOffset && startCount < itemsPerPage ? ++startCount && (
-                <ListGroupItem key={index} className="text-center">
-                  <img src={user.picture.large} alt="user-pic" />
+                <ListGroupItem
+                  key={index}
+                  className="text-center">
+                  <img
+                    src={user.picture.large}
+                    alt="user-pic" />
                   <p>
                     {user.name.first} {user.name.last}
                   </p>
                   {!user.isFriend ? (
-                    <Button style={{marginBottom: "10px"}} color="primary" onClick={() => onAddFriend(user)}>Add To Friend List</Button>
+                    <Button
+                      style={{marginBottom: "10px"}}
+                      color="primary"
+                      onClick={() => onAddFriend(user)}>
+                      Add To Friend List
+                    </Button>
                   ) : (
-                    <Button style={{marginBottom: "10px"}} color="danger" onClick={() => onRemoveFriend(user)}>Remove From Friend List</Button>
+                    <Button
+                      style={{marginBottom: "10px"}}
+                      color="danger"
+                      onClick={() => onRemoveFriend(user)}>
+                      Remove From Friend List
+                    </Button>
                   )}
                   {!user.isFaveFriend ? (
-                    <Button color="success" onClick={() => onAddToFaveFriend(user)}>Add To Favourites</Button>
+                    <Button
+                      color="success"
+                      onClick={() => onAddToFaveFriend(user)}>
+                      Add To Favourites
+                    </Button>
                   ) : (
-                    <Button color="warning" onClick={() => onRemoveToFaveFriend(user)}>Remove From Favourites</Button>
+                    <Button
+                      color="warning"
+                      onClick={() => onRemoveToFaveFriend(user)}>
+                      Remove From Favourites
+                    </Button>
                   )}
                 </ListGroupItem>
               ) : (

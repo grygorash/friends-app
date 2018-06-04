@@ -13,13 +13,18 @@ const FriendList = props => {
           <p>{users.length === 1 ? `You have ${users.length} favourite` : users.length > 1 ? `You have ${users.length} favourites` : "No favourites"}</p>
           <ListGroup>
             {users.map((friend, index) =>
-              <ListGroupItem key={index} id={friend.phone}>
-                <img src={friend.picture.medium} alt="user-pic" />
+              <ListGroupItem
+                key={index}
+                id={friend.phone}>
+                <img
+                  src={friend.picture.medium}
+                  alt="user-pic" />
                 <span>
                 {friend.name.first} {friend.name.last}
                 </span>
-                <Button color="warning"
-                        onClick={() => onRemoveToFaveFriend(friend)}>
+                <Button
+                  color="warning"
+                  onClick={() => onRemoveToFaveFriend(friend)}>
                   Remove From Favourites
                 </Button>
               </ListGroupItem>

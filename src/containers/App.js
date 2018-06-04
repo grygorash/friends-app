@@ -65,60 +65,64 @@ class App extends Component {
       <Container>
         <Header />
         <Switch>
-          <Route exact path="/"
-                 render={() => {
-                   return (
-                     <UserList
-                       loaded={loaded}
-                       users={users}
-                       currentPage={currentPage}
-                       itemsPerPage={itemsPerPage}
-                       onAddFriend={this.handleAddFriend}
-                       onRemoveFriend={this.handleRemoveFriend}
-                       onAddToFaveFriend={this.handleAddFaveFriend}
-                       onRemoveToFaveFriend={this.handleRemoveFaveFriend}
-                       page={this.page}
-                     />
-                   );
-                 }}
+          <Route
+            exact path="/"
+            render={() => {
+              return (
+                <UserList
+                  loaded={loaded}
+                  users={users}
+                  currentPage={currentPage}
+                  itemsPerPage={itemsPerPage}
+                  onAddFriend={this.handleAddFriend}
+                  onRemoveFriend={this.handleRemoveFriend}
+                  onAddToFaveFriend={this.handleAddFaveFriend}
+                  onRemoveToFaveFriend={this.handleRemoveFaveFriend}
+                  page={this.page}
+                />
+              );
+            }}
           />
-          <Route path="/search"
-                 render={() =>
-                   <SearchList
-                     loaded={loaded}
-                     value={searchValue}
-                     users={searchedUsers}
-                     onInputChange={this.handleSearchUser}
-                     onAddFriend={this.handleAddFriend}
-                     onRemoveFriend={this.handleRemoveFriend}
-                     onAddToFaveFriend={this.handleAddFaveFriend}
-                     onRemoveToFaveFriend={this.handleRemoveFaveFriend}
-                   />
-                 }
+          <Route
+            path="/search"
+            render={() =>
+              <SearchList
+                loaded={loaded}
+                value={searchValue}
+                users={searchedUsers}
+                onInputChange={this.handleSearchUser}
+                onAddFriend={this.handleAddFriend}
+                onRemoveFriend={this.handleRemoveFriend}
+                onAddToFaveFriend={this.handleAddFaveFriend}
+                onRemoveToFaveFriend={this.handleRemoveFaveFriend}
+              />
+            }
           />
-          <Route path="/friends"
-                 render={() => {
-                   return (
-                     <FriendList
-                       loaded={loaded}
-                       users={friends}
-                       onRemoveFriend={this.handleRemoveFriend}
-                       onAddToFaveFriend={this.handleAddFaveFriend}
-                       onRemoveToFaveFriend={this.handleRemoveFaveFriend}
-                     />
-                   );
-                 }}
+          <Route
+            path="/friends"
+            render={() => {
+              return (
+                <FriendList
+                  loaded={loaded}
+                  users={friends}
+                  onRemoveFriend={this.handleRemoveFriend}
+                  onAddToFaveFriend={this.handleAddFaveFriend}
+                  onRemoveToFaveFriend={this.handleRemoveFaveFriend}
+                />
+              );
+            }}
           />
-          <Route path="/favourites"
-                 render={() => {
-                   return (
-                     <FavouritesList
-                       loaded={loaded}
-                       users={faveFriends}
-                       onRemoveToFaveFriend={this.handleRemoveFaveFriend}
-                     />
-                   );
-                 }}
+          <Route
+            path="/favourites"
+            render={() => {
+              return (
+                <FavouritesList
+                  loaded={loaded}
+                  users={faveFriends}
+                  onRemoveToFaveFriend={this.handleRemoveFaveFriend}
+                />
+              );
+            }}
           />
         </Switch>
       </Container>
