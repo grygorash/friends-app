@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, Button, Input } from "reactstrap";
 import Loader from "../Loader";
 
 const SearchList = props => {
-  const {value, onInputChange, users, onAddFriend, onRemoveFriend, loaded} = props;
+  const {value, onInputChange, users, onAddFriend, onRemoveFriend, loaded, onAddToFaveFriend, onRemoveToFaveFriend} = props;
   return (
     <Fragment>
       {loaded ? (
@@ -22,9 +22,14 @@ const SearchList = props => {
                   {user.name.first} {user.name.last}
                 </p>
                 {!user.isFriend ? (
-                  <Button color="primary" onClick={() => onAddFriend(user)}>add</Button>
+                  <Button color="primary" onClick={() => onAddFriend(user)}>Add To Friend List</Button>
                 ) : (
-                  <Button color="danger" onClick={() => onRemoveFriend(user)}>remove</Button>
+                  <Button color="danger" onClick={() => onRemoveFriend(user)}>Remove From Friend List</Button>
+                )}
+                {!user.isFaveFriend ? (
+                  <Button color="success" onClick={() => onAddToFaveFriend(user)}>Add To Favourites</Button>
+                ) : (
+                  <Button color="warning" onClick={() => onRemoveToFaveFriend(user)}>Remove From Favourites</Button>
                 )}
               </ListGroupItem>
             )}

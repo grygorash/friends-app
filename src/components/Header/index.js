@@ -9,6 +9,7 @@ const Header = () => {
         <NavLink exact to="/"><ListGroupItem>Home</ListGroupItem></NavLink>
         <NavLink to="/search"><ListGroupItem>Search</ListGroupItem></NavLink>
         <NavLink to="/friends"><ListGroupItem>My Friends</ListGroupItem></NavLink>
+        <NavLink to="/favourites"><ListGroupItem>My Favourites</ListGroupItem></NavLink>
       </ListGroup>
     </div>
   );

@@ -11,3 +11,7 @@ export const getSearchedUsers = createSelector(getUsers, getSearchValue, (users,
 export const getFriends = createSelector(getUsers, (users) => {
   return users.filter(user => user.isFriend);
 });
+
+export const getFaveFriends = createSelector(getUsers, (users) => {
+  return users.filter(user => user.isFaveFriend);
+});

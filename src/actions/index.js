@@ -6,7 +6,7 @@ import {
   FETCH_USERS_FAILURE,
   ADD_FRIEND,
   REMOVE_FRIEND,
-  SEARCH_USER
+  SEARCH_USER, ADD_FAVE_FRIEND, REMOVE_FAVE_FRIEND
 } from "../actionTypes";
 
 export const fetchUsers = () => async dispatch => {
@@ -43,9 +43,23 @@ export const addFriend = user => {
   };
 };
 
+export const addFaveFriend = user => {
+  return {
+    type: ADD_FAVE_FRIEND,
+    user
+  };
+};
+
 export const removeFriend = user => {
   return {
     type: REMOVE_FRIEND,
+    user
+  };
+};
+
+export const removeFaveFriend = user => {
+  return {
+    type: REMOVE_FAVE_FRIEND,
     user
   };
 };

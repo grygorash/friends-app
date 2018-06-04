@@ -6,11 +6,13 @@ import { connect } from "react-redux";
 import { Container } from "reactstrap";
 
 import { addFriend, removeFriend, fetchUsers, searchUser } from "../actions/index";
-import { getUsers, getSearchValue, getLoadingStatus, getSearchedUsers, getFriends } from "../selectors";
+import { getUsers, getSearchValue, getLoadingStatus, getSearchedUsers, getFriends, getFaveFriends } from "../selectors";
 import UserList from "../components/UserList/index";
 import Header from "../components/Header/index";
 import SearchList from "../components/SearchList/index";
 import FriendList from "../components/FriendList/index";
+import { addFaveFriend, removeFaveFriend } from "../actions";
+import FavouritesList from "../components/FavouritesList/FavouritesList";
 
 class App extends Component {
   constructor(props) {
@@ -33,8 +35,16 @@ class App extends Component {
     this.props.addFriend(user);
   };
 
+  handleAddFaveFriend = user => {
+    this.props.addFaveFriend(user);
+  };
+
   handleRemoveFriend = user => {
     this.props.removeFriend(user);
+  };
+
+  handleRemoveFaveFriend = user => {
+    this.props.removeFaveFriend(user);
   };
 
   handleSearchUser = value => {
@@ -48,7 +58,7 @@ class App extends Component {
   };
 
   render() {
-    const {users, searchedUsers, searchValue, friends, loaded} = this.props;
+    const {users, searchedUsers, searchValue, friends, loaded, faveFriends} = this.props;
     const {itemsPerPage, currentPage} = this.state;
 
     return (
@@ -65,6 +75,8 @@ class App extends Component {
                        itemsPerPage={itemsPerPage}
                        onAddFriend={this.handleAddFriend}
                        onRemoveFriend={this.handleRemoveFriend}
+                       onAddToFaveFriend={this.handleAddFaveFriend}
+                       onRemoveToFaveFriend={this.handleRemoveFaveFriend}
                        page={this.page}
                      />
                    );
@@ -79,6 +91,8 @@ class App extends Component {
                      onInputChange={this.handleSearchUser}
                      onAddFriend={this.handleAddFriend}
                      onRemoveFriend={this.handleRemoveFriend}
+                     onAddToFaveFriend={this.handleAddFaveFriend}
+                     onRemoveToFaveFriend={this.handleRemoveFaveFriend}
                    />
                  }
           />
@@ -89,6 +103,19 @@ class App extends Component {
                        loaded={loaded}
                        users={friends}
                        onRemoveFriend={this.handleRemoveFriend}
+                       onAddToFaveFriend={this.handleAddFaveFriend}
+                       onRemoveToFaveFriend={this.handleRemoveFaveFriend}
+                     />
+                   );
+                 }}
+          />
+          <Route path="/favourites"
+                 render={() => {
+                   return (
+                     <FavouritesList
+                       loaded={loaded}
+                       users={faveFriends}
+                       onRemoveToFaveFriend={this.handleRemoveFaveFriend}
                      />
                    );
                  }}
@@ -103,6 +130,7 @@ const mapStateToProps = state => ({
   loaded: getLoadingStatus(state),
   users: getUsers(state),
   friends: getFriends(state),
+  faveFriends: getFaveFriends(state),
   searchValue: getSearchValue(state),
   searchedUsers: getSearchedUsers(state)
 });
@@ -110,7 +138,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchUsers: bindActionCreators(fetchUsers, dispatch),
   addFriend: bindActionCreators(addFriend, dispatch),
+  addFaveFriend: bindActionCreators(addFaveFriend, dispatch),
   removeFriend: bindActionCreators(removeFriend, dispatch),
+  removeFaveFriend: bindActionCreators(removeFaveFriend, dispatch),
   searchUser: bindActionCreators(searchUser, dispatch),
 });
 

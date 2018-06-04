@@ -5,7 +5,7 @@ import Loader from "../Loader";
 
 
 const FriendList = props => {
-  const {users, onRemoveFriend, loaded} = props;
+  const {users, onRemoveFriend, loaded, onAddToFaveFriend, onRemoveToFaveFriend} = props;
 
   return (
     <Fragment>
@@ -19,7 +19,23 @@ const FriendList = props => {
                 <span>
                 {friend.name.first} {friend.name.last}
                 </span>
-                <Button color="danger" onClick={() => onRemoveFriend(friend)}>Remove</Button>
+                <Button color="danger"
+                        onClick={() => onRemoveFriend(friend)}>
+                  Remove
+                </Button>
+                {friend.isFaveFriend ? (
+                  <Button style={{marginLeft: "10px"}}
+                          color="warning"
+                          onClick={() => onRemoveToFaveFriend(friend)}>
+                    Delete From Favourites
+                  </Button>
+                ) : (
+                  <Button style={{marginLeft: "10px"}}
+                          color="success"
+                          onClick={() => onAddToFaveFriend(friend)}>
+                    Add To Favourites
+                  </Button>
+                )}
               </ListGroupItem>
             )}
           </ListGroup>
