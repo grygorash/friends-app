@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 
 import Loader from "../Loader";
+import { Link } from "react-router-dom";
 
 
 const FriendList = props => {
@@ -17,9 +18,11 @@ const FriendList = props => {
               <ListGroupItem
                 key={index}
                 id={friend.phone}>
-                <img
-                  src={friend.picture.medium}
-                  alt="user-pic" />
+                <Link to={`/user/${friend.phone}`}>
+                  <img
+                    src={friend.picture.medium}
+                    alt="user-pic" />
+                </Link>
                 <span>
                 {friend.name.first} {friend.name.last}
                 </span>

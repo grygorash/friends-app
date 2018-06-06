@@ -20,7 +20,7 @@
 			&:hover {
 				background-color: #007bff;
 				color: #fff;
-				height: 60px;
+				height: 58px;
 			}
 			&:not(:first-child) {
 				margin-left: 1px;
@@ -44,6 +44,10 @@
 				text-transform: capitalize;
 				max-width: 22.5%;
 				width: 100%;
+				transition: all .3s;
+				&:hover {
+					box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, 0.5);
+				}
 				&:nth-child(4n) {
 					margin-right: 0;
 				}
@@ -53,26 +57,31 @@
 			}
 		}
 	}
-
-	.friend-list {
+	.friend-list,
+	.fave-list {
 		span {
 			margin: 0 30px;
 			text-transform: capitalize;
 		}
 	}
-
 	.user-list,
-	.friend-list {
+	.friend-list,
+	.fave-list {
 		p {
 			margin: 24.5px 0;
 		}
 	}
 	.user-list,
 	.friend-list,
-	.search-list {
+	.search-list,
+	.fave-list,
+	.user {
 		margin-top: 80px;
 		p {
 			text-align: center;
+		}
+		img {
+			border-radius: 50%;
 		}
 	}
 

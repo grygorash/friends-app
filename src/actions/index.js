@@ -6,7 +6,7 @@ import {
   FETCH_USERS_FAILURE,
   ADD_FRIEND,
   REMOVE_FRIEND,
-  SEARCH_USER, ADD_FAVE_FRIEND, REMOVE_FAVE_FRIEND
+  SEARCH_USER, ADD_FAVE_FRIEND, REMOVE_FAVE_FRIEND, FIND_USER, FIND_LOCAL_USER, FIND_USER_FAILURE, FIND_USER_START
 } from "../actionTypes";
 
 export const fetchUsers = () => async dispatch => {
@@ -14,7 +14,6 @@ export const fetchUsers = () => async dispatch => {
   try {
     const users = await axios.get("https://randomuser.me/api/?results=30&seed=abc");
     const localUsers = JSON.parse(localStorage.getItem("users"));
-
     if (!localStorage.getItem("users")) {
       dispatch({
         type: FETCH_USERS_SUCCESS,
@@ -30,6 +29,34 @@ export const fetchUsers = () => async dispatch => {
   catch (err) {
     dispatch({
       type: FETCH_USERS_FAILURE,
+      payload: err,
+      error: true
+    });
+  }
+};
+
+export const findUser = userId => async dispatch => {
+  dispatch({type: FIND_USER_START});
+  try {
+    const users = await axios.get("https://randomuser.me/api/?results=30&seed=abc");
+    const localUsers = JSON.parse(localStorage.getItem("users"));
+    if (!localStorage.getItem("users")) {
+      dispatch({
+        type: FIND_USER,
+        user: users.data.results.filter(user => user.phone === userId),
+        users: users.data.results
+      });
+    } else {
+      dispatch({
+        type: FIND_LOCAL_USER,
+        user: localUsers.filter(user => user.phone === userId),
+        users: localUsers
+      });
+    }
+  }
+  catch (err) {
+    dispatch({
+      type: FIND_USER_FAILURE,
       payload: err,
       error: true
     });

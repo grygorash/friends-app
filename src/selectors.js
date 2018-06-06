@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 
 export const getUsers = state => state.users;
+export const getUser = state => state.user;
 export const getSearchValue = state => state.searchedValue;
 export const getLoadingStatus = state => state.loaded;
 

@@ -3,6 +3,7 @@ import { ListGroup, ListGroupItem, Button } from "reactstrap";
 
 import Loader from "../Loader";
 import Pagination from "../Pagination/index";
+import { Link } from "react-router-dom";
 
 const UserList = props => {
   const {onRemoveFriend, onAddFriend, onAddToFaveFriend, onRemoveToFaveFriend, users, currentPage, itemsPerPage, page, loaded} = props;
@@ -20,9 +21,11 @@ const UserList = props => {
                 <ListGroupItem
                   key={index}
                   className="text-center">
-                  <img
-                    src={user.picture.large}
-                    alt="user-pic" />
+                  <Link to={`/user/${user.phone}`}>
+                    <img
+                      src={user.picture.large}
+                      alt="user-pic" />
+                  </Link>
                   <p>
                     {user.name.first} {user.name.last}
                   </p>

@@ -6,13 +6,22 @@ import { connect } from "react-redux";
 import { Container } from "reactstrap";
 
 import { addFriend, removeFriend, fetchUsers, searchUser } from "../actions/index";
-import { getUsers, getSearchValue, getLoadingStatus, getSearchedUsers, getFriends, getFaveFriends } from "../selectors";
-import { addFaveFriend, removeFaveFriend } from "../actions";
+import {
+  getUsers,
+  getSearchValue,
+  getLoadingStatus,
+  getSearchedUsers,
+  getFriends,
+  getFaveFriends,
+  getUser
+} from "../selectors";
+import { addFaveFriend, findUser, removeFaveFriend } from "../actions";
 import Header from "../components/Header/index";
 import UserList from "../components/UserList/index";
 import SearchList from "../components/SearchList/index";
 import FriendList from "../components/FriendList/index";
 import FavouritesList from "../components/FavouritesList/FavouritesList";
+import User from "../components/User/User";
 
 class App extends Component {
   constructor(props) {
@@ -51,6 +60,10 @@ class App extends Component {
     this.props.searchUser(value);
   };
 
+  handleFindUser = user => {
+    this.props.findUser(user);
+  };
+
   page = page => {
     this.setState({
       currentPage: page
@@ -58,7 +71,7 @@ class App extends Component {
   };
 
   render() {
-    const {users, searchedUsers, searchValue, friends, loaded, faveFriends} = this.props;
+    const {users, user, searchedUsers, searchValue, friends, loaded, faveFriends} = this.props;
     const {itemsPerPage, currentPage} = this.state;
 
     return (
@@ -124,6 +137,23 @@ class App extends Component {
               );
             }}
           />
+          <Route
+            exact path="/user/:id"
+            render={() => {
+              return (
+                <User
+                  loaded={loaded}
+                  user={user}
+                  users={users}
+                  onFindUser={this.handleFindUser}
+                  onAddFriend={this.handleAddFriend}
+                  onRemoveFriend={this.handleRemoveFriend}
+                  onAddToFaveFriend={this.handleAddFaveFriend}
+                  onRemoveToFaveFriend={this.handleRemoveFaveFriend}
+                />
+              );
+            }}
+          />
         </Switch>
       </Container>
     );
@@ -136,7 +166,8 @@ const mapStateToProps = state => ({
   friends: getFriends(state),
   faveFriends: getFaveFriends(state),
   searchValue: getSearchValue(state),
-  searchedUsers: getSearchedUsers(state)
+  searchedUsers: getSearchedUsers(state),
+  user: getUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -146,6 +177,7 @@ const mapDispatchToProps = dispatch => ({
   removeFriend: bindActionCreators(removeFriend, dispatch),
   removeFaveFriend: bindActionCreators(removeFaveFriend, dispatch),
   searchUser: bindActionCreators(searchUser, dispatch),
+  findUser: bindActionCreators(findUser, dispatch)
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

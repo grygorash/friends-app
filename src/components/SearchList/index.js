@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { ListGroup, ListGroupItem, Button, Input } from "reactstrap";
 
 import Loader from "../Loader";
+import { Link } from "react-router-dom";
 
 const SearchList = props => {
   const {value, onInputChange, users, onAddFriend, onRemoveFriend, loaded, onAddToFaveFriend, onRemoveToFaveFriend} = props;
@@ -20,9 +21,11 @@ const SearchList = props => {
               <ListGroupItem
                 key={index}
                 className="text-center">
-                <img
-                  src={user.picture.large}
-                  alt="user-pic" />
+                <Link to={`/user/${user.phone}`}>
+                  <img
+                    src={user.picture.large}
+                    alt="user-pic" />
+                </Link>
                 <p>
                   {user.name.first} {user.name.last}
                 </p>
