@@ -7,11 +7,11 @@ import { Container } from "reactstrap";
 
 import { addFriend, removeFriend, fetchUsers, searchUser } from "../actions/index";
 import { getUsers, getSearchValue, getLoadingStatus, getSearchedUsers, getFriends, getFaveFriends } from "../selectors";
-import UserList from "../components/UserList/index";
+import { addFaveFriend, removeFaveFriend } from "../actions";
 import Header from "../components/Header/index";
+import UserList from "../components/UserList/index";
 import SearchList from "../components/SearchList/index";
 import FriendList from "../components/FriendList/index";
-import { addFaveFriend, removeFaveFriend } from "../actions";
 import FavouritesList from "../components/FavouritesList/FavouritesList";
 
 class App extends Component {

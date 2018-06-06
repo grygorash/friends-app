@@ -1,23 +1,43 @@
 #root {
 	margin: 0 0 15px 0;
 	.menu {
-		.list-group {
-			justify-content: flex-start;
-			flex-flow: row wrap;
-			margin-bottom: 15px;
+		display: flex;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		a {
+			text-decoration: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 50px;
+			width: 150px;
+			border: 1px solid #007bff;
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+			transition: all .3s;
+			&:hover {
+				background-color: #007bff;
+				color: #fff;
+				height: 60px;
+			}
+			&:not(:first-child) {
+				margin-left: 1px;
+			}
 		}
 	}
 	.user-list,
 	.search-list {
 		input {
-			margin-bottom: 20px;
-			max-width: 47.5%;
+			margin: 0 auto 11px;
+			max-width: 54.5%;
 			width: 100%;
 		}
 		.list-group {
 			flex-direction: row;
 			flex-wrap: wrap;
-			justify-content: flex-start;
+			justify-content: space-between;
 			.list-group-item {
 				margin: 0 30px 30px 0;
 				border-radius: 5px;
@@ -33,16 +53,27 @@
 			}
 		}
 	}
+
 	.friend-list {
 		span {
 			margin: 0 30px;
 			text-transform: capitalize;
 		}
 	}
+
 	.user-list,
 	.friend-list {
 		p {
 			margin: 24.5px 0;
 		}
 	}
+	.user-list,
+	.friend-list,
+	.search-list {
+		margin-top: 80px;
+		p {
+			text-align: center;
+		}
+	}
+
 }

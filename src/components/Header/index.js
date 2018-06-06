@@ -5,12 +5,26 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 const Header = () => {
   return (
     <div className="menu">
-      <ListGroup className="main-nav">
-        <NavLink exact to="/"><ListGroupItem>Home</ListGroupItem></NavLink>
-        <NavLink to="/search"><ListGroupItem>Search</ListGroupItem></NavLink>
-        <NavLink to="/friends"><ListGroupItem>My Friends</ListGroupItem></NavLink>
-        <NavLink to="/favourites"><ListGroupItem>My Favourites</ListGroupItem></NavLink>
-      </ListGroup>
+      <NavLink
+        exact to="/"
+        activeStyle={{backgroundColor: "#007bff", color: "#fff", height: "60px"}}>
+        Home
+      </NavLink>
+      <NavLink
+        to="/search"
+        activeStyle={{backgroundColor: "#007bff", color: "#fff", height: "60px"}}>
+        Search
+      </NavLink>
+      <NavLink
+        to="/friends"
+        activeStyle={{backgroundColor: "#007bff", color: "#fff", height: "60px"}}>
+        My Friends
+      </NavLink>
+      <NavLink
+        to="/favourites"
+        activeStyle={{backgroundColor: "#007bff", color: "#fff", height: "60px"}}>
+        My Favourites
+      </NavLink>
     </div>
   );
 };
